@@ -58,7 +58,7 @@ net.blobs['data'].reshape(1,1,28,28)
 # net.blobs['data'].data[...] = transformer.preprocess('data',
 #     caffe.io.load_image(caffe_root + '/examples/images/cat_gray.jpg', color=False) )
 net.blobs['data'].data[...] = transformer.preprocess('data',
-    caffe.io.load_image(caffe_root + '/examples/images/no2.png', color=False) )
+    caffe.io.load_image(caffe_root + '/examples/images/no7.png', color=False) )
 out = net.forward()
 
 print("net.blobsのkeyとvlueのリストを表示")
@@ -67,7 +67,7 @@ print([ (k, v.data.shape) for k,v in net.blobs.items()])
 features = net.blobs['conv1'].data[0, :20]
 vis_square('conv1',features, padval=1)
 
-features = net.blobs['conv2'].data[0, :20*50]
+features = net.blobs['conv2'].data[0, :50]
 vis_square('conv2',features, padval=1)
 
 features = net.blobs['ip2'].data

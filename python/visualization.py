@@ -10,7 +10,7 @@ plt.rcParams['figure.figsize'] = (10, 10)
 plt.rcParams['image.interpolation'] = 'none'
 plt.rcParams['image.cmap'] = 'gray'
 
-caffe_root = os.environ.get("CAFFE_DIR") 
+caffe_root = os.environ.get("CAFFE_DIR")
 
 caffe.set_mode_cpu()
 
@@ -22,11 +22,11 @@ net = caffe.Net(caffe_root + '/examples/mnist/lenet.prototxt',
 #     caffe_root + '/models/bvlc_alexnet/bvlc_alexnet.caffemodel',
 #     caffe.TEST)
 
-def vis_square(data, padsize=1, padval=0):
+def vis_square(data, padsize=1, padval=0):  # padsizeは、1個開けて特徴量表示, padval=0は黒
     data -= data.min()
-    data /= data.max()
+    data /= data.max()   # 0から1に正規化している。
 
-    n = int(np.ceil(np.sqrt(data.shape[0])))
+    n = int(np.ceil(np.sqrt(data.shape[0]))) # 縦横に並べる画像の数を計算
     padding = ((0, n ** 2 - data.shape[0]),
                 (0,padsize),
                 (0,padsize)) + ( (0,0) , ) * (data.ndim -3)
@@ -46,7 +46,7 @@ print("net.paramsのkeyとvalueのリストを表示")
 print([(k, v[0].data.shape) for k, v in net.params.items()])
 
 filters = net.params['conv1'][0].data  # 20 images
-vis_square(filters.transpose(0,2,3,1))
+vis_square(filters.transpose(0,2,3,1))  # 配列を並び替える
 
-filters = net.params['conv2'][0].data  # 50*20 images 
+filters = net.params['conv2'][0].data  # 50*20 images
 vis_square(filters.reshape(50*20,5,5))
